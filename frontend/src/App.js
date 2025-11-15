@@ -1,7 +1,30 @@
-import React from "react";
+import React, { useState ,useEffect} from "react";
 import "./App.css";
+import { fetchReviews, postReview } from "./api";
+
 
 const App = () => {
+  const [review, setReview] = useState("");
+  const [reviews, setReviews] = useState([]);
+
+   const handleSubmit = (e) => {
+     e.preventDefault();
+     if (review.trim() === "") return;
+
+     postReview(review)
+       .then(() => {
+         setReviews([...reviews, { text: review }]);
+         setReview("");
+       })
+       .catch((err) => console.error(err));
+   };
+
+  useEffect(() => {
+    fetchReviews()
+      .then((data) => setReviews(data))
+      .catch((err) => console.error(err));
+  }, []);
+
   return (
     <div className="App">
       <nav className="navbar">
@@ -20,7 +43,7 @@ const App = () => {
       </nav>
 
       <header className="hero">
-        <h1>Hi, I'm Lester </h1>
+        <h1>Hi, I'm Lester</h1>
         <p>React Developer | Problem Solver | Tech Enthusiast</p>
         <a href="#projects" className="btn">
           View My Work
@@ -38,14 +61,12 @@ const App = () => {
           building responsive designs, integrating APIs, and optimizing
           performance for better user experiences.
         </p>
-
         <p>
           I’m constantly learning new technologies to improve my development
           workflow and stay current with industry trends. I have a strong
           interest in front-end development, UI/UX design, and real-time
           data-driven applications.
         </p>
-
         <p>
           Beyond coding, I enjoy collaborating with cross-functional teams,
           mentoring junior developers, and contributing to open-source projects.
@@ -80,10 +101,36 @@ const App = () => {
         </a>
       </section>
 
+      <section id="reviews" className="section">
+        <h2>Leave a Review</h2>
+        <form onSubmit={handleSubmit} className="review-form">
+          <input
+            type="text"
+            placeholder="Write a review..."
+            value={review}
+            onChange={(e) => setReview(e.target.value)}
+            className="review-input"
+          />
+          <button type="submit" className="btn">
+            Post
+          </button>
+        </form>
+
+        <div className="review-list">
+          {reviews.length === 0 ? (
+            <p>No reviews yet — be the first!</p>
+          ) : (
+            reviews.map((r, index) => (
+              <div key={index} className="review-card">
+                {r.text}
+              </div>
+            ))
+          )}
+        </div>
+      </section>
+
       <footer>
-        <p>
-          © {new Date().getFullYear()} Lester Nazareth 
-        </p>
+        <p>© {new Date().getFullYear()} Lester Nazareth</p>
       </footer>
     </div>
   );

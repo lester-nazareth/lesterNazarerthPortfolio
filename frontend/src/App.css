@@ -83,3 +83,31 @@ footer {
   background: #222;
   color: #fff;
 }
+.review-form {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.review-input {
+  width: 60%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.review-list {
+  margin-top: 20px;
+  text-align: left;
+  max-width: 600px;
+  margin-inline: auto;
+}
+
+.review-card {
+  background: #fff;
+  border: 1px solid #ddd;
+  padding: 10px 15px;
+  border-radius: 8px;
+  margin-bottom: 8px;
+}
