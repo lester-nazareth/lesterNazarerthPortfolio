@@ -1,4 +1,4 @@
-import React, { useState ,useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { fetchReviews, postReview } from "./api";
 import { images } from "./assets/images/Image.ts";
 
@@ -7,17 +7,17 @@ const App = () => {
   const [reviews, setReviews] = useState([]);
   const [open, setOpen] = useState(false);
 
-   const handleSubmit = (e) => {
-     e.preventDefault();
-     if (review.trim() === "") return;
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (review.trim() === "") return;
 
-     postReview(review)
-       .then(() => {
-         setReviews([...reviews, { text: review }]);
-         setReview("");
-       })
-       .catch((err) => console.error(err));
-   };
+    postReview(review)
+      .then(() => {
+        setReviews([...reviews, { text: review }]);
+        setReview("");
+      })
+      .catch((err) => console.error(err));
+  };
 
   useEffect(() => {
     fetchReviews()
@@ -26,30 +26,64 @@ const App = () => {
   }, []);
 
   return (
-    <div>
+    <div className="min-h-screen">
       <nav>
-        <div className="p-4 flex-row bg-gray-300 flex justify-between">
+        <div className="p-4 flex-row bg-gray-300 flex justify-between items-center">
           <h className="font-semibold text-2xl">Lester Nazareth</h>
           <div>
             <ul className=" flex items-center flex-row px-4">
               <li className="px-4">
-                <a href="#about" className="text-white">
-                  <img src={images.aboutIcon} alt="About" className="inline w-5 h-5 mr-1" />
+                <a
+                  href="#about"
+                  className="items-center gap-2 flex hover:scale-110"
+                >
+                  About
+                  <img
+                    src={images.AboutUs}
+                    alt="About"
+                    className="inline w-5 h-5  "
+                  />
                 </a>
               </li>
               <li className="px-4">
-                <a href="#projects" className="text-white">
-                  <img src={images.Project} alt="Projects" className="inline w-5 h-5 mr-1" />
+                <a
+                  href="#projects"
+                  className="items-center gap-2 flex hover:scale-110"
+                >
+                  Projects
+                  <img
+                    src={images.Project}
+                    alt="Projects"
+                    className="inline w-5 h-5  "
+                  />
                 </a>
               </li>
               <li className="px-4">
-                <a href="#contact" className="text">
+                <a
+                  href="#contact"
+                  className="items-center gap-2 flex hover:scale-110"
+                >
                   Contact
+                  <img
+                    src={images.Contact}
+                    alt="Contact"
+                    title="Contact"
+                    className="inline w-5 h-5 "
+                  />
                 </a>
               </li>
+
               <li className="px-4">
-                <a href="#experience" className="text-white">
+                <a
+                  href="#experience"
+                  className="items-center gap-2 flex  hover:scale-110"
+                >
                   Experience
+                  <img
+                    src={images.Experience}
+                    alt="Experience"
+                    className="inline w-5 h-5  "
+                  />
                 </a>
               </li>
             </ul>
@@ -60,7 +94,7 @@ const App = () => {
       <header className="p-20 text-center bg-gradient-to-r from-blue-500 to-purple-600  text-white font-bold text-2xl">
         <h1>Hi, I'm Lester</h1>
         <p>React Developer | Problem Solver | Tech Enthusiast</p>
-        <a href="#projects" className="btn">
+        <a href="#projects" className="bg-gray-800 px-4 py-2 mt-4 inline-block rounded-md font-semibold hover:bg-gray-200">
           View My Work
         </a>
       </header>
@@ -90,7 +124,10 @@ const App = () => {
         </p>
       </section>
 
-      <section id="projects" className="p-8">
+      <section
+        id="projects"
+        className="p-8 bg-gradient-to-r from-cyan-500 to-purple-800 "
+      >
         <h2 className="text-2xl font-semibold">Projects</h2>
 
         <div className="flex justify-between gap-3">
