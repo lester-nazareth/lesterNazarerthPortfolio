@@ -1,38 +1,41 @@
 version: "3.9"
-services:
-  mongo:
-    image: mongo:6
-    container_name: mongo
-    restart: unless-stopped
-    ports:
-      - "27017:27017"
-    volumes:
-      - mongo_data:/data/db
 
+services:
   backend:
-    build:
-      context: ./backend
-    container_name: fastapi_backend
-    restart: unless-stopped
-    depends_on:
-      - mongo
+    build: ./backend
+    container_name: backend
     ports:
       - "8000:8000"
     environment:
-      # inside compose use the mongo service hostname "mongo"
-      - MONGO_URI=mongodb://mongo:27017/portfolioDB
+      - MONGO_URI=mongodb://mongodb:27017/mydb
+    depends_on:
+      - mongodb
+    networks:
+      - app-net
 
   frontend:
-    build:
-      context: ./frontend
-      args:
-        - REACT_APP_API_URL=http://backend:8000
-    container_name: react_frontend
-    restart: unless-stopped
-    depends_on:
-      - backend
+    build: ./frontend
+    container_name: frontend
     ports:
       - "3000:80"
+    networks:
+      - app-net
+
+  mongodb:
+    image: mongo:6.0
+    container_name: mongodb
+    restart: always
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_DATABASE: mydb
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - app-net
+
+networks:
+  app-net:
 
 volumes:
   mongo_data:
