@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
+import './App.css';
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Hero from "./components/Hero/Hero";
 gsap.registerPlugin(ScrollTrigger);
 import { fetchReviews, postReview } from "./api";
 import { images } from "./assets/images/Image.ts";
@@ -114,7 +116,7 @@ const App = () => {
         </div>
       </nav>
 
-      <header className="p-20 text-center bg-gradient-to-r from-blue-500 to-purple-600  text-white font-bold text-2xl reveal">
+      <Hero />
         <h1>Hi, I'm Lester</h1>
         <p>React Developer | Problem Solver | Tech Enthusiast</p>
         <a href="#projects" className="bg-gray-800 px-4 py-2 mt-4 inline-block rounded-md font-semibold hover:bg-gray-200">
